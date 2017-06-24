@@ -13,6 +13,8 @@ services:
         - POSTGRES_USER=admin
         - POSTGRES_PASSWORD=development
         - POSTGRES_DB=hatilist
+      ports:
+       - "5432:5432"
 
     webserver:
       image: nginx:alpine
