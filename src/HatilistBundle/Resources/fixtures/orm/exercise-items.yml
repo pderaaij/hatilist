@@ -1,0 +1,4 @@
+HatilistBundle\Domain\Exercise\Item:
+  item_{1..20}:
+    title: <sentence()>
+    description: <text(800..1000)>
