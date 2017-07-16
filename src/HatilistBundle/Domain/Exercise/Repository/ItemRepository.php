@@ -11,4 +11,10 @@ interface ItemRepository
      * @return Item[]
      */
     public function getAll() : array;
+
+    /**
+     * @param string $exerciseId
+     * @return Item
+     */
+    public function findById(string $exerciseId) : Item;
 }

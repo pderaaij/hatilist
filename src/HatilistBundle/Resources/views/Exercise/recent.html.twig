@@ -7,7 +7,9 @@
 
         {% for item in recentItems %}
             <h4> {{ item.title }}</h4>
-            <p> {{ item.description }}</p>
+            <p> {{ item.description|truncate(100, true) }}</p>
+
+            <a href="{{ path('exercise-view', { 'exerciseId': item.id }) }}">Meer over deze oefening.</a>
         {% endfor %}
     </div>
 </div>
