@@ -13,7 +13,7 @@ class RecentlyAddedControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/recently-added');
 
-        $this->assertContains('Recent toegevoegd', $client->getResponse()->getContent());
+        $this->assertContains('<h3>Recent toegevoegd</h3>', $client->getResponse()->getContent());
         $this->assertGreaterThan(
             0,
             $crawler->filter('html:contains("Meer over deze oefening")')->count()
