@@ -13,14 +13,14 @@ class RecentlyAddedController extends Controller
     /**
      * @var ItemRepository
      */
-    private $exerciseItemRepository = null;
+    private $exerciseRepository = null;
 
     /**
-     * @param ItemRepository $exerciseItemRepository
+     * @param ItemRepository $exerciseRepository
      */
-    public function __construct(ItemRepository $exerciseItemRepository)
+    public function __construct(ItemRepository $exerciseRepository)
     {
-        $this->exerciseItemRepository = $exerciseItemRepository;
+        $this->exerciseRepository = $exerciseRepository;
     }
 
     /**
@@ -28,7 +28,7 @@ class RecentlyAddedController extends Controller
      */
     public function listAction()
     {
-        $recentItems = $this->exerciseItemRepository->getAll();
+        $recentItems = $this->exerciseRepository->getAll();
 
         return $this->render(
             'HatilistBundle:Exercise:recent.html.twig',
