@@ -32,4 +32,15 @@ class DoctrineItemRepository implements ItemRepository
             ->getRepository('HatilistBundle:Exercise\Item')
             ->findAll();
     }
+
+    /**
+     * @param string $exerciseId
+     * @return Item
+     */
+    public function findById(string $exerciseId): Item
+    {
+        return $this->entityManager
+            ->getRepository('HatilistBundle:Exercise\Item')
+            ->find($exerciseId);
+    }
 }
