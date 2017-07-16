@@ -1,0 +1,13 @@
+HatilistBundle\Domain\User\User:
+  pderaaij:
+    username: pderaaij
+    plainPassword: test
+    email: paul@paulderaaij.nl
+    roles: [ROLE_USER]
+    enabled: true
+  author:
+    username: author
+    plainPassword: author
+    email: author@example.com
+    roles: [ROLE_USER]
+    enabled: true

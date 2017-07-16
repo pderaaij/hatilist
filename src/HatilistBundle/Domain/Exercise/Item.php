@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace HatilistBundle\Domain\Exercise;
 
 use Doctrine\ORM\Mapping as ORM;
+use HatilistBundle\Domain\User\User;
 
 /**
  * @ORM\Entity
@@ -30,6 +31,13 @@ class Item
      * @var string
      */
     protected $description = null;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="HatilistBundle\Domain\User\User")
+     * @ORM\JoinColumn(nullable=false)
+     * @var User
+     */
+    protected $owner = null;
 
     /**
      * @param string $id
@@ -77,6 +85,22 @@ class Item
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner(User $owner)
+    {
+        $this->owner = $owner;
     }
 
 }
