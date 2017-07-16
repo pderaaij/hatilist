@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Recently added</h3>
+
+        {% for item in recentItems %}
+            <h4> {{ item.title }}</h4>
+            <p> {{ item.description }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
