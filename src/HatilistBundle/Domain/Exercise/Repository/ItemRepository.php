@@ -24,4 +24,9 @@ interface ItemRepository
      */
     public function findRecent(int $numberOfItems): array;
 
+    /**
+     * @param Item $item
+     * @return void
+     */
+    public function save(Item $item);
 }

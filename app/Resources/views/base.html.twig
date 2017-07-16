@@ -36,6 +36,9 @@
                         <li class="{% if app.request.attributes.get('_route') == 'recently-added' %}active{% endif %}">
                             <a href="{{ path('recently-added') }}">Recent toegevoegd</a>
                         </li>
+                        <li class="{% if app.request.attributes.get('_route') == 'add-exercise' %}active{% endif %}">
+                            <a href="{{ path('add-exercise') }}">Oefening toevoegen</a>
+                        </li>
                     </ul>
 
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -45,6 +48,7 @@
                         </a>
                     {% else %}
                         <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
                     {% endif %}
                 </div>
             </div>
