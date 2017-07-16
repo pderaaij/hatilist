@@ -60,4 +60,14 @@ class DoctrineItemRepository implements ItemRepository
             );
 
     }
+
+    /**
+     * @param Item $item
+     * @return void
+     */
+    public function save(Item $item)
+    {
+        $this->entityManager->persist($item);
+        $this->entityManager->flush();
+    }
 }

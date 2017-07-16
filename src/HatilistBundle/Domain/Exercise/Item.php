@@ -24,13 +24,13 @@ class Item
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    protected $title = null;
+    protected $title = "";
 
     /**
      * @ORM\Column(type="text")
      * @var string
      */
-    protected $description = null;
+    protected $description = "";
 
     /**
      * @ORM\ManyToOne(targetEntity="HatilistBundle\Domain\User\User")
@@ -46,7 +46,7 @@ class Item
     protected $created = null;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     protected $lastUpdate = null;
