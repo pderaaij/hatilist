@@ -32,7 +32,8 @@
         "nelmio/alice": "^3.0@beta",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "theofidry/alice-data-fixtures": "^1.0@beta"
+        "theofidry/alice-data-fixtures": "^1.0@beta",
+        "codacy/coverage": "dev-master"
     },
     "scripts": {
         "symfony-scripts": [
