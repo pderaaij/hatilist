@@ -10,7 +10,7 @@
 
                 <div class="bottom-article">
                     <ul class="meta-post">
-                        <li><i class="fa fa-calendar"></i>TODO</li>
+                        <li><i class="fa fa-calendar"></i> {{ exercise.created|date('d-m-Y') }}</li>
                         <li><i class="fa fa-user"></i><a href="#"> {{ exercise.owner.username }}</a></li>
                         <li><i class="fa fa-comments"></i>TODO</li>
                         <li><i class="fa fa-tags"></i>TODO</li>

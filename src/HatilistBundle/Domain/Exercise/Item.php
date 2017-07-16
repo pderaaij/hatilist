@@ -40,6 +40,18 @@ class Item
     protected $owner = null;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    protected $created = null;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    protected $lastUpdate = null;
+
+    /**
      * @param string $id
      */
     public function setId(string $id)
@@ -103,4 +115,35 @@ class Item
         $this->owner = $owner;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getCreated(): \DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreated(\DateTime $created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastUpdate(): \DateTime
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
+     * @param \DateTime $lastUpdate
+     */
+    public function setLastUpdate(\DateTime $lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+    }
 }
