@@ -44,3 +44,5 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+
+/phpunit.phar

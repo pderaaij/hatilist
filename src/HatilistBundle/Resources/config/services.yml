@@ -1,5 +1,4 @@
 services:
-
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -18,3 +17,11 @@ services:
     HatilistBundle\Infrastructure\Exercise\Repository\DoctrineItemRepository: ~
 
     HatilistBundle\Domain\Exercise\Repository\ItemRepository: '@HatilistBundle\Infrastructure\Exercise\Repository\DoctrineItemRepository'
+
+    hatilistbundle.command_handlers.add_exercise:
+        class: 'HatilistBundle\Domain\Exercise\Handlers\AddExerciseCommandHandler'
+        public: true
+        arguments:
+          - '@HatilistBundle\Domain\Exercise\Repository\ItemRepository'
+        tags:
+          - { name: tactician.handler, command: HatilistBundle\Domain\Exercise\Command\AddExerciseCommand }
