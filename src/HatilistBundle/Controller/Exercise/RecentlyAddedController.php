@@ -28,7 +28,7 @@ class RecentlyAddedController extends Controller
      */
     public function listAction()
     {
-        $recentItems = $this->exerciseRepository->getAll();
+        $recentItems = $this->exerciseRepository->findRecent(10);
 
         return $this->render(
             'HatilistBundle:Exercise:recent.html.twig',

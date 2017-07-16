@@ -17,4 +17,11 @@ interface ItemRepository
      * @return Item
      */
     public function findById(string $exerciseId) : Item;
+
+    /**
+     * @param int $numberOfItems
+     * @return Item[]
+     */
+    public function findRecent(int $numberOfItems): array;
+
 }

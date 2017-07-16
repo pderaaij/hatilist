@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Infrastructure\Exercise\Repository;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use HatilistBundle\Domain\Exercise\Item;
 use HatilistBundle\Domain\Exercise\Repository\ItemRepository;
@@ -42,5 +43,21 @@ class DoctrineItemRepository implements ItemRepository
         return $this->entityManager
             ->getRepository('HatilistBundle:Exercise\Item')
             ->find($exerciseId);
+    }
+
+    /**
+     * @param int $numberOfItems
+     * @return Item[]
+     */
+    public function findRecent(int $numberOfItems): array
+    {
+        return $this->entityManager
+            ->getRepository('HatilistBundle:Exercise\Item')
+            ->findBy(
+                [],
+                ['created' => Criteria::DESC],
+                $numberOfItems
+            );
+
     }
 }

@@ -3,3 +3,5 @@ HatilistBundle\Domain\Exercise\Item:
     title: <sentence()>
     description: <text(800..1000)>
     owner: '@author'
+    created: <dateTime()>
+    lastUpdate: <dateTime()>

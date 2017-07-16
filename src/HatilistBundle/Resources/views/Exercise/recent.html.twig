@@ -6,7 +6,7 @@
         <h3>Recent toegevoegd</h3>
 
         {% for item in recentItems %}
-            <h4> {{ item.title }}</h4>
+            <h4> <a href="{{ path('exercise-view', { 'exerciseId': item.id }) }}"> {{ item.title }} </a> </h4>
             <p> {{ item.description|truncate(100, true) }}</p>
 
             <a href="{{ path('exercise-view', { 'exerciseId': item.id }) }}">Meer over deze oefening.</a>
