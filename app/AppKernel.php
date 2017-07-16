@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new HatilistBundle\HatilistBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new League\Tactician\Bundle\TacticianBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

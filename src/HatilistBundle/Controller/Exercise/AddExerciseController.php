@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Controller\Exercise;
 
+use HatilistBundle\Domain\Exercise\Command\AddExerciseCommand;
 use HatilistBundle\Domain\Exercise\Item;
 use HatilistBundle\Domain\Exercise\Repository\ItemRepository;
 use HatilistBundle\Infrastructure\Exercise\Form\AddExerciseForm;
+use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bridge\PhpUnit\Legacy\Command;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,16 +18,16 @@ class AddExerciseController extends Controller
 {
 
     /**
-     * @var ItemRepository
+     * @var CommandBus
      */
-    private $exerciseRepository = null;
+    private $commandBus = null;
 
     /**
-     * @param ItemRepository $exerciseRepository
+     * @param CommandBus $commandBus
      */
-    public function __construct(ItemRepository $exerciseRepository)
+    public function __construct(CommandBus $commandBus)
     {
-        $this->exerciseRepository = $exerciseRepository;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -63,10 +66,14 @@ class AddExerciseController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Item $item */
             $item = $form->getData();
-            $item->setOwner($this->getUser());
-            $item->setCreated(new \DateTime());
 
-            $this->exerciseRepository->save($item);
+            $command = new AddExerciseCommand(
+                $item->getTitle(),
+                $item->getDescription(),
+                $this->getUser()
+            );
+
+            $this->commandBus->handle($command);
 
             return $this->redirectToRoute('recently-added');
         }
