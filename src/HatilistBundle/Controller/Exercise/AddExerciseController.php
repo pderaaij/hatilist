@@ -5,12 +5,10 @@ namespace HatilistBundle\Controller\Exercise;
 
 use HatilistBundle\Domain\Exercise\Command\AddExerciseCommand;
 use HatilistBundle\Domain\Exercise\Item;
-use HatilistBundle\Domain\Exercise\Repository\ItemRepository;
 use HatilistBundle\Infrastructure\Exercise\Form\AddExerciseForm;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bridge\PhpUnit\Legacy\Command;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
