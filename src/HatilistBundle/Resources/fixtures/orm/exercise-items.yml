@@ -3,5 +3,6 @@ HatilistBundle\Domain\Exercise\Item:
     title: <sentence()>
     description: <text(800..1000)>
     owner: '@author'
+    labels: ['@label_<numberBetween(1, 10)>']
     created: <dateTime()>
     lastUpdate: <dateTime()>

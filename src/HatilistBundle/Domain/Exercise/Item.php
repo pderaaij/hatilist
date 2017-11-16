@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Domain\Exercise;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use HatilistBundle\Domain\User\User;
 
 /**
@@ -33,6 +36,15 @@ class Item
     protected $description = "";
 
     /**
+     * @ORM\ManyToMany(targetEntity="HatilistBundle\Domain\Exercise\Label", fetch="EAGER")
+     * @ORM\JoinTable(name="ExerciseItem_Label",
+     *                joinColumns={@ORM\JoinColumn(referencedColumnName="id")},
+     *                inverseJoinColumns={@ORM\JoinColumn(referencedColumnName="id")})
+     * @var Label[]
+     */
+    protected $labels = null;
+
+    /**
      * @ORM\ManyToOne(targetEntity="HatilistBundle\Domain\User\User")
      * @ORM\JoinColumn(nullable=false)
      * @var User
@@ -50,6 +62,12 @@ class Item
      * @var \DateTime
      */
     protected $lastUpdate = null;
+
+
+    public function __construct()
+    {
+        $this->labels = new ArrayCollection();
+    }
 
     /**
      * @param string $id
@@ -97,6 +115,33 @@ class Item
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getLabels(): Collection
+    {
+        return $this->labels;
+    }
+
+    /**
+     * @param Label[] $labels
+     */
+    public function setLabels(array $labels)
+    {
+
+        foreach($labels as $label) {
+            $this->addLabel($label);
+        }
+    }
+
+    /**
+     * @param Label $label
+     */
+    public function addLabel(Label $label)
+    {
+        $this->labels[] = $label;
     }
 
     /**
