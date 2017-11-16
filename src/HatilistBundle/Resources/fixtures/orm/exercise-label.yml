@@ -1,0 +1,5 @@
+HatilistBundle\Domain\Exercise\Label:
+  label_{1..10}:
+    name: <word()>
+    created: <dateTime()>
+    lastUpdate: <dateTime()>
