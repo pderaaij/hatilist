@@ -6,6 +6,7 @@ namespace HatilistBundle\Tests\Domain\Handlers;
 use HatilistBundle\Domain\Exercise\Command\AddExerciseCommand;
 use HatilistBundle\Domain\Exercise\Handlers\AddExerciseCommandHandler;
 use HatilistBundle\Domain\Exercise\Repository\ItemRepository;
+use HatilistBundle\Domain\Interfaces\UuidGenerator;
 use HatilistBundle\Domain\User\User;
 use PHPUnit\Framework\TestCase;
 
@@ -23,6 +24,11 @@ class AddExerciseCommandHandlerTest extends TestCase
     private $mockedItemRepository = null;
 
     /**
+     * @var UuidGenerator|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $mockedUuidGenerator = null;
+
+    /**
      * @var User|\PHPUnit_Framework_MockObject_MockObject
      */
     private $mockedOwner = null;
@@ -31,8 +37,12 @@ class AddExerciseCommandHandlerTest extends TestCase
     {
         $this->mockedItemRepository = $this->createMock(ItemRepository::class);
 
+        $this->mockedUuidGenerator = $this->createMock(UuidGenerator::class);
+        $this->mockedUuidGenerator->method('generateUuidV4')->willReturn('daidhuy34y43r45t5');
+
         $this->commandHandler = new AddExerciseCommandHandler(
-          $this->mockedItemRepository
+          $this->mockedItemRepository,
+          $this->mockedUuidGenerator
         );
 
         $this->mockedOwner = $this->createMock(User::class);

@@ -6,6 +6,7 @@ namespace HatilistBundle\Domain\Exercise\Handlers;
 use HatilistBundle\Domain\Exercise\Command\AddExerciseCommand;
 use HatilistBundle\Domain\Exercise\Item;
 use HatilistBundle\Domain\Exercise\Repository\ItemRepository;
+use HatilistBundle\Domain\Interfaces\UuidGenerator;
 
 class AddExerciseCommandHandler
 {
@@ -15,11 +16,20 @@ class AddExerciseCommandHandler
     private $itemRepository = null;
 
     /**
-     * @param ItemRepository $itemRepository
+     * @var UuidGenerator
      */
-    public function __construct(ItemRepository $itemRepository)
-    {
+    private $uuidGenerator = null;
+
+    /**
+     * @param ItemRepository $itemRepository
+     * @param UuidGenerator $uuidGenerator
+     */
+    public function __construct(
+        ItemRepository $itemRepository,
+        UuidGenerator $uuidGenerator
+    ) {
         $this->itemRepository = $itemRepository;
+        $this->uuidGenerator = $uuidGenerator;
     }
 
     /**
@@ -39,11 +49,9 @@ class AddExerciseCommandHandler
             throw new \InvalidArgumentException("Owner has to be assigned");
         }
 
-        $item = new Item();
-        $item->setTitle($command->getTitle());
-        $item->setDescription($command->getDescription());
+        $item = Item::create($this->uuidGenerator->generateUuidV4(), $command->getTitle());
+        $item->describeExercise($command->getDescription());
         $item->setOwner($command->getOwner());
-        $item->setCreated(new \DateTime());
 
         $this->itemRepository->save($item);
     }

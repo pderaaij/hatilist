@@ -36,7 +36,7 @@ class AddExerciseController extends Controller
         $form = $this
             ->createForm(
                 AddExerciseForm::class,
-                new Item(),
+                Item::create('', ''),
                 [
                     'action' => $this->generateUrl("save-exercise"),
                     'method' => 'POST'
@@ -58,7 +58,7 @@ class AddExerciseController extends Controller
      */
     public function saveView(Request $request)
     {
-        $form = $this->createForm(AddExerciseForm::class, new Item());
+        $form = $this->createForm(AddExerciseForm::class, Item::create('', ''));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

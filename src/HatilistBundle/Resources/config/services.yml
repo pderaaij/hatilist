@@ -14,14 +14,19 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    HatilistBundle\Infrastructure\Exercise\Repository\DoctrineItemRepository: ~
+    HatilistBundle\Infrastructure\:
+        resource: '../../Infrastructure'
+        public: true
 
-    HatilistBundle\Domain\Exercise\Repository\ItemRepository: '@HatilistBundle\Infrastructure\Exercise\Repository\DoctrineItemRepository'
+    HatilistBundle\Infrastructure\Exercise\Repository\CleanItemRepository: ~
+
+    HatilistBundle\Domain\Exercise\Repository\ItemRepository: '@HatilistBundle\Infrastructure\Exercise\Repository\CleanItemRepository'
 
     hatilistbundle.command_handlers.add_exercise:
         class: 'HatilistBundle\Domain\Exercise\Handlers\AddExerciseCommandHandler'
         public: true
         arguments:
           - '@HatilistBundle\Domain\Exercise\Repository\ItemRepository'
+          - '@HatilistBundle\Infrastructure\UuidGeneratorImplementation'
         tags:
           - { name: tactician.handler, command: HatilistBundle\Domain\Exercise\Command\AddExerciseCommand }

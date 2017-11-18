@@ -3,94 +3,64 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Domain\Exercise;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use HatilistBundle\Domain\User\User;
 
-/**
- * @ORM\Entity
- * @Orm\Table(name="ExerciseItem")
- */
 class Item
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="guid")
-     * @ORM\GeneratedValue(strategy="UUID")
      * @var string
      */
     protected $id = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @var string
      */
     protected $title = "";
 
     /**
-     * @ORM\Column(type="text")
      * @var string
      */
     protected $description = "";
 
     /**
-     * @ORM\ManyToMany(targetEntity="HatilistBundle\Domain\Exercise\Label", fetch="EAGER")
-     * @ORM\JoinTable(name="ExerciseItem_Label",
-     *                joinColumns={@ORM\JoinColumn(referencedColumnName="id")},
-     *                inverseJoinColumns={@ORM\JoinColumn(referencedColumnName="id")})
      * @var Label[]
      */
-    protected $labels = null;
+    protected $labels = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="HatilistBundle\Domain\User\User")
-     * @ORM\JoinColumn(nullable=false)
      * @var User
      */
     protected $owner = null;
 
     /**
-     * @ORM\Column(type="datetime")
      * @var \DateTime
      */
     protected $created = null;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     protected $lastUpdate = null;
 
-
-    public function __construct()
+    /**
+     * @param string $id
+     * @param string $title
+     */
+    protected function __construct(string $id, string $title)
     {
-        $this->labels = new ArrayCollection();
+        $this->id = $id;
+        $this->title = $title;
+        $this->created = new \DateTime();
     }
 
     /**
      * @param string $id
-     */
-    public function setId(string $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @param string $title
+     * @return Item
      */
-    public function setTitle(string $title)
+    public static function create(string $id, string $title) 
     {
-        $this->title = $title;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
+       return (new self($id, $title));
     }
 
     /**
@@ -118,30 +88,11 @@ class Item
     }
 
     /**
-     * @return Collection
+     * @return Label[]
      */
-    public function getLabels(): Collection
+    public function getLabels(): array
     {
         return $this->labels;
-    }
-
-    /**
-     * @param Label[] $labels
-     */
-    public function setLabels(array $labels)
-    {
-
-        foreach($labels as $label) {
-            $this->addLabel($label);
-        }
-    }
-
-    /**
-     * @param Label $label
-     */
-    public function addLabel(Label $label)
-    {
-        $this->labels[] = $label;
     }
 
     /**
@@ -169,14 +120,6 @@ class Item
     }
 
     /**
-     * @param \DateTime $created
-     */
-    public function setCreated(\DateTime $created)
-    {
-        $this->created = $created;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getLastUpdate(): \DateTime
@@ -185,10 +128,38 @@ class Item
     }
 
     /**
-     * @param \DateTime $lastUpdate
+     * @param $description
      */
-    public function setLastUpdate(\DateTime $lastUpdate)
+    public function describeExercise(string $description)
     {
-        $this->lastUpdate = $lastUpdate;
+        $this->description = $description;
     }
+
+    /**
+     * @param User $owner
+     */
+    public function assignOwner(User $owner)
+    {
+        $this->owner = $owner;
+    }
+
+
+    // TODO: To remove, just here to support forms
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
+
 }

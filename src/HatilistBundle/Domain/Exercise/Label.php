@@ -3,45 +3,53 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Domain\Exercise;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity
- * @Orm\Table(name="ExerciseLabel")
- */
 class Label
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="guid")
-     * @ORM\GeneratedValue(strategy="UUID")
      * @var string
      */
     protected $id = null;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @var string
      */
     protected $name = "";
 
     /**
-     * @ORM\Column(type="string", unique=true)
      * @var string
      */
     protected $slug = "";
 
     /**
-     * @ORM\Column(type="datetime")
      * @var \DateTime
      */
     protected $created = null;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
     protected $lastUpdate = null;
+
+
+    /**
+     * @param string $id
+     * @param string $name
+     */
+    protected function __construct(string $id, string $name) 
+    {
+        $this->id = $id;
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $id
+     * @param string $name
+     * @return Label
+     */
+    public static function create(string $id, string $name)
+    {
+        return (new self($id, $name));
+    }
 
     /**
      * @return string

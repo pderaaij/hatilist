@@ -46,3 +46,5 @@
 /web/bundles/
 
 /phpunit.phar
+
+.vscode
