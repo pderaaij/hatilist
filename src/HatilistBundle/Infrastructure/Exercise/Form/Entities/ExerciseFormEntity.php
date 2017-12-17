@@ -3,8 +3,13 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Infrastructure\Exercise\Form\Entities;
 
-class AddExerciseFormEntity
+class ExerciseFormEntity
 {
+
+    /**
+     * @var string
+     */
+    private $id = '';
 
     /**
      * @var string
@@ -15,6 +20,22 @@ class AddExerciseFormEntity
      * @var string
      */
     private $description = '';
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string
