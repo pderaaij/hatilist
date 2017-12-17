@@ -24,7 +24,7 @@ class ExerciseController extends Controller
 
     /**
      * @Route("exercise/{exerciseId}", name="exercise-view")
-     * @param int $exerciseId
+     * @param string $exerciseId
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewAction(string $exerciseId)
@@ -36,4 +36,5 @@ class ExerciseController extends Controller
             [ 'exercise' => $exercise ]
         );
     }
+
 }

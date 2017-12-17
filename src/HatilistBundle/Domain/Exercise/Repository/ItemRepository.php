@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace HatilistBundle\Domain\Exercise\Repository;
 
+use HatilistBundle\Domain\Exercise\Exception\ExerciseNotFoundException;
 use HatilistBundle\Domain\Exercise\Item;
 
 interface ItemRepository
@@ -14,6 +15,7 @@ interface ItemRepository
 
     /**
      * @param string $exerciseId
+     * @throws ExerciseNotFoundException
      * @return Item
      */
     public function findById(string $exerciseId) : Item;

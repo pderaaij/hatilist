@@ -88,11 +88,32 @@ class Item
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreated(): \DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @return Label[]
+     */
+    public function getLabels(): array
+    {
+        return $this->labels;
+    }
+
+    /**
      * @return User
      */
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    public function nameExercise(string $title)
+    {
+        $this->title = $title;
     }
 
     /**

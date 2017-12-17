@@ -30,3 +30,11 @@ services:
           - '@HatilistBundle\Infrastructure\UuidGeneratorImplementation'
         tags:
           - { name: tactician.handler, command: HatilistBundle\Domain\Exercise\Command\AddExerciseCommand }
+
+    hatilistbundle.command_handlers.change_exercise:
+        class: 'HatilistBundle\Domain\Exercise\Handlers\ChangeExerciseCommandHandler'
+        public: true
+        arguments:
+          - '@HatilistBundle\Domain\Exercise\Repository\ItemRepository'
+        tags:
+          - { name: tactician.handler, command: HatilistBundle\Domain\Exercise\Command\ChangeExerciseCommand }

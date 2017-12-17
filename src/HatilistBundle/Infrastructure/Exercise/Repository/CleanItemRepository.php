@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace HatilistBundle\Infrastructure\Exercise\Repository;
 
 use Doctrine\DBAL\Connection;
+use HatilistBundle\Domain\Exercise\Exception\ExerciseNotFoundException;
 use HatilistBundle\Domain\Exercise\Item;
 use HatilistBundle\Domain\Exercise\Repository\ItemRepository;
 use HatilistBundle\Domain\User\User;
@@ -43,7 +44,9 @@ class CleanItemRepository implements ItemRepository
         $resultItem = $this->connection->fetchAssoc(
             "SELECT
                           ei.*,
-                          fu.*
+                          fu.*,
+                          fu.id as userId,
+                          ei.id as id
                        FROM
                           exerciseitem ei
                        LEFT JOIN
@@ -52,6 +55,9 @@ class CleanItemRepository implements ItemRepository
                           ei.id = '$exerciseId'"
         );
 
+        if ($resultItem ===  false) {
+            throw new ExerciseNotFoundException("Could not find exercise with id " . $exerciseId);
+        }
 
         return $this->hydrateExercise($resultItem);
     }
@@ -84,16 +90,34 @@ class CleanItemRepository implements ItemRepository
      */
     public function save(Item $item)
     {
-        $this->connection->insert(
-            'exerciseitem',
-            [
-                'id' => $item->getId(),
-                'title' => $item->getTitle(),
-                'description' => $item->getDescription(),
-                'owner_id' => $item->getOwner()->getId(),
-                'created' => $item->getCreated()->format('Y-m-d H:i:s')
-            ]
-        );
+        try {
+            $this->findById($item->getId());
+
+            $this->connection->update(
+                'exerciseitem',
+                [
+                    'title' => $item->getTitle(),
+                    'description' => $item->getDescription(),
+                    'last_update' => (new \DateTime())->format('Y-m-d H:i:s')
+                ],
+                [
+                    'id' => $item->getId()
+                ]
+            );
+
+        } catch (ExerciseNotFoundException $e) {
+            $this->connection->insert(
+                'exerciseitem',
+                [
+                    'id' => $item->getId(),
+                    'title' => $item->getTitle(),
+                    'description' => $item->getDescription(),
+                    'owner_id' => $item->getOwner()->getId(),
+                    'created' => $item->getCreated()->format('Y-m-d H:i:s')
+                ]
+            );
+        }
+
     }
 
     /**
@@ -112,6 +136,10 @@ class CleanItemRepository implements ItemRepository
             $resultItem,
             (new \ReflectionClass(Item::class))->newInstanceWithoutConstructor()
         );
+
+        if (array_key_exists('userid', $resultItem)) {
+            $resultItem['id'] = $resultItem['userid'];
+        }
 
         $user = $hydrator->hydrate(
             $resultItem,
