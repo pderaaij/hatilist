@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace HatilistBundle\Tests\Domain\Handlers;
+namespace HatilistBundle\Tests\Domain\Exercise\Handlers;
 
 use HatilistBundle\Domain\Exercise\Command\AddExerciseCommand;
 use HatilistBundle\Domain\Exercise\Handlers\AddExerciseCommandHandler;

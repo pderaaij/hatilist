@@ -88,43 +88,11 @@ class Item
     }
 
     /**
-     * @return Label[]
-     */
-    public function getLabels(): array
-    {
-        return $this->labels;
-    }
-
-    /**
      * @return User
      */
     public function getOwner()
     {
         return $this->owner;
-    }
-
-    /**
-     * @param User $owner
-     */
-    public function setOwner(User $owner)
-    {
-        $this->owner = $owner;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated(): \DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getLastUpdate(): \DateTime
-    {
-        return $this->lastUpdate;
     }
 
     /**
@@ -143,23 +111,11 @@ class Item
         $this->owner = $owner;
     }
 
-
-    // TODO: To remove, just here to support forms
-
     /**
-     * @param string $title
+     * @param User $owner
      */
-    public function setTitle(string $title)
+    public function setOwner(User $owner)
     {
-        $this->title = $title;
+        $this->owner = $owner;
     }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-    }
-
 }

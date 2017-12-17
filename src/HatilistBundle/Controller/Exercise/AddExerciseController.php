@@ -6,6 +6,7 @@ namespace HatilistBundle\Controller\Exercise;
 use HatilistBundle\Domain\Exercise\Command\AddExerciseCommand;
 use HatilistBundle\Domain\Exercise\Item;
 use HatilistBundle\Infrastructure\Exercise\Form\AddExerciseForm;
+use HatilistBundle\Infrastructure\Exercise\Form\Entities\AddExerciseFormEntity;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -36,7 +37,7 @@ class AddExerciseController extends Controller
         $form = $this
             ->createForm(
                 AddExerciseForm::class,
-                Item::create('', ''),
+                new AddExerciseFormEntity(),
                 [
                     'action' => $this->generateUrl("save-exercise"),
                     'method' => 'POST'
@@ -58,11 +59,11 @@ class AddExerciseController extends Controller
      */
     public function saveView(Request $request)
     {
-        $form = $this->createForm(AddExerciseForm::class, Item::create('', ''));
+        $form = $this->createForm(AddExerciseForm::class, new AddExerciseFormEntity());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Item $item */
+            /** @var AddExerciseFormEntity $item */
             $item = $form->getData();
 
             $command = new AddExerciseCommand(
