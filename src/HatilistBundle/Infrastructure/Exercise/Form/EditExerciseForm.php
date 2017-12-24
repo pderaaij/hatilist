@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class EditExerciseForm extends AbstractType
 {
@@ -24,7 +25,10 @@ class EditExerciseForm extends AbstractType
     {
         $builder
             ->add('id', HiddenType::class)
-            ->add('title')
+            ->add('title', null, [
+                'required' => true,
+                'constraints' => [ new Length(['min' => 3])]
+            ])
             ->add('description',null, [ 'attr' => [ 'rows' => 8 ]])
             ->add('save', SubmitType::class);
     }
