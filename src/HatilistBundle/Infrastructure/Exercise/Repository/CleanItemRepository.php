@@ -83,7 +83,6 @@ class CleanItemRepository implements ItemRepository
     }
 
     /**
-     * TODO: Very naive save method
      *
      * @param Item $item
      * @return void

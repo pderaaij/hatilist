@@ -15,7 +15,7 @@
                         <li><i class="fa fa-comments"></i>TODO</li>
                         <li><i class="fa fa-tags"></i>{% for l in exercise.labels %} {{ l.name }}, {% endfor %}</li>
 
-                        {% if exercise.owner.id == app.user.id  %}
+                        {% if app.user != null and exercise.owner.id == app.user.id  %}
                         <li>
                             <a href="{{ path('edit-exercise', { 'id': exercise.id }) }}">edit exercise</a>
                         </li>
